@@ -7,57 +7,91 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class= "row">
-            <div class= "col-sm-4">CrystalsCollector!</div>
-            <div class= "col-sm-4"></div>
-            <div class= "col-sm-4"></div>
-        </div>
-        <div class= "row">
-            <div class="col-sm-6">
-                <p>You will be given a random number at the start of the game.</p>
-                <p>There are four crystals below. By clicking on a crystal you will add a specific amount of points to your total score.</p>
-                <p>You win the game by matching your total score to random number, you lose the game if you </p>
-            </div>
-            <div class="col-sm-6"></div>
-        </div>
-        <div class= "row">
-            <div class= "col-sm-3"></div>
-            <div class= "col-sm-3">
-                <div class= "row">
-                    <div class= "col-sm-4"></div>
-                    <div class= "col-sm-4"></div>
-                    <div class= "col-sm-4"></div>
-                </div>
-            </div>
-            <div class= "col-sm-3"></div>
-            <div class= "col-sm-3"></div>
-        </div>
-        <div class= "row">
-            <div class= "col-sm-6">
-                <div class= "col-sm-3"></div>
-                <div class= "col-sm-3"></div>
-                <div class= "col-sm-3"></div>
-                <div class= "col-sm-3"></div>
-            </div>
-            <div class= "col-sm-6"></div>
-        </div>
-        <div class= "row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4"></div>
-        </div>
-        <div class= "row">
-            <div class= "col-sm-4"></div>
-            <div class= "col-sm-4"></div>
-            <div class= "col-sm-4"></div>
-        </div>
-
+    <h1>CrystalsCollector Game!</h1>
+    <h2>How to play: </h2>
+            <p>You will be given a random number at the start of the game.</p>
+            <p>There are four crystals below. By clicking on a  crystal you will add a specific amount of points to your total score.</p>
+            <p>You win the gamr by matching your total score to random number, you lose the game if your total score goes above the random number.</p>
+            <p>The value of each crystal is hidden from you until you click on it.</p>
+            <p>Each time when the game starts, the game will change the values of each crystal.</p>
     </div>
+    <br><br>
+     <div id="goalNumber"></div> <!--the computer chosen number-->
+     <div id="winsOrLosses"></div> <!--the place where player can see their scores-->
+     <div id="jellyBeans">
+         <img src="./assets/images/blue.png" style="width:50px;height:50px;">
+        
+         <img src="./assets/images/silver.png" style="width:50px;height:50px;">
+        
+         <img src="./assets/images/red.png"style="width:50px;height:50px;">
+        
+         <img src="./assets/images/yellow.png"style="width:50px;height:50px;">
+        
+         
+     </div>  <!--jelly beans images-->
+     <div id="yourTotalScore">Your total score:</div> 
+     <div id="yourScoreNumber"></div> <!--the sum result of jelly beans values -->
+
+<script type="text/javascript">
+var wins= 0;
+var losses= 0;
+var yourScoreNumber= 0; // the number that player got from clicking jelly beans
+var goalNumber= ""; //computer randomly chosen number (goal)
+var img = ["./assets/images/blue.png","./assets/images/silver.png","./assets/images/red.png","./assets/images/yellow.png" ];
+function randomGoalNumber () {
+    goalNumber= Math.floor(Math.random() * 102) + 19;
+} //generatin a randomly chosen number given as target number
+function jellyBeansRandomNumber (){
+    for (var i = 0; i < img.length; i++) {
+            var jellyBeans = $("<img>");
+            jellyBeans.addClass("jellyBeansClass");
+			jellyBeans.attr("src", img[i]);
+			jellyBeans.attr("value", (Math.floor(Math.random() * 12) + 1));
+			
+			
+		}
+    } // I attached the images of jelly beans with a random value 
+    function HTML () {
+		$("#goalNumber").html(goalNumber);
+		$("#winsOrLosses").html("<p>Wins: " + wins + "</p>" + "<p>Losses: " + losses + "</p>");
+		$("#yourScoreNumber").html(yourScoreNumber);
+		
+	}
+
+	function Reset () {
+		randomGoalNumber ();
+		yourScoreNumber = 0;
+        HTML ();
+        jellyBeansRandomNumber();
+		
+    }
+    
+    randomGoalNumber();
+    HTML();
+    jellyBeansRandomNumber();
+    //calling functions to run
+    $(".jellyBeansClass").on("click", function() {
+        yourScoreNumber += parseInt($(this).attr("value"));
+        console.log(yourScoreNumber);
+        //debugger;
+        $("#yourScoreNumber").html(yourScoreNumber); //on click function
+
+        if (yourScoreNumber==goalNumber) {
+            wins++;
+            Reset();
+        }
+        else if (yourScoreNumber>goalNumber) {
+            losses++;
+            Reset();
+        }; // win and loss conditions
+    });
+   
+
+</script>
 </body>
- 
+</html>
 
 
-</head>
