@@ -21,17 +21,7 @@
     <br><br>
      <div id="goalNumber"></div> <!--the computer chosen number-->
      <div id="winsOrLosses"></div> <!--the place where player can see their scores-->
-     <div id="jellyBeans">
-         <img src="./assets/images/blue.png" style="width:50px;height:50px;">
-        
-         <img src="./assets/images/silver.png" style="width:50px;height:50px;">
-        
-         <img src="./assets/images/red.png"style="width:50px;height:50px;">
-        
-         <img src="./assets/images/yellow.png"style="width:50px;height:50px;">
-        
-         
-     </div>  <!--jelly beans images-->
+     <div id="jellyBeans"></div>  <!--jelly beans images-->
      <div id="yourTotalScore">Your total score:</div> 
      <div id="yourScoreNumber"></div> <!--the sum result of jelly beans values -->
 
@@ -49,7 +39,9 @@ function jellyBeansRandomNumber (){
             var jellyBeans = $("<img>");
             jellyBeans.addClass("jellyBeansClass");
 			jellyBeans.attr("src", img[i]);
-			jellyBeans.attr("value", (Math.floor(Math.random() * 12) + 1));
+            jellyBeans.attr("value", (Math.floor(Math.random() * 12) + 1));
+            jellyBeans.attr("height", "100");
+			$("#jellyBeans").append(jellyBeans);
 			
 			
 		}
@@ -57,7 +49,8 @@ function jellyBeansRandomNumber (){
     function HTML () {
 		$("#goalNumber").html(goalNumber);
 		$("#winsOrLosses").html("<p>Wins: " + wins + "</p>" + "<p>Losses: " + losses + "</p>");
-		$("#yourScoreNumber").html(yourScoreNumber);
+        $("#yourScoreNumber").html(yourScoreNumber);
+        $("#jellyBeans").empty();
 		
 	}
 
